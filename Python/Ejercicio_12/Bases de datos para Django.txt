@@ -1,0 +1,147 @@
+Aqui ya debe de tener una base de datos creada en el proyecto Django con los parametros que se colocan en el
+archivo settings.py
+Para crear un modelo se debe de colocar en la consola el comando:
+
+python3 manage.py makemigrations
+
+Solo si dentro de la apliacion no se creo el archivo models.py, de ser asi se crean dentro del archivo de la
+siguiente forma:
+
+from django.db import models
+
+class (nombre_modelo)(models.Model):
+    (nombre_campo) = models.(tipo_campo)(max_length=100, help_text='(descripcion del campo)')
+        -En el tipo de campo podemos colocar:
+            -CharField (para campos de texto corto)
+            -TextField (para campos de texto largo)
+            -IntegerField (para campos de numeros enteros)
+            -FloatField (para campos de numeros decimales)
+            -DateField (para campos de fecha)
+            -TimeField (para campos de hora)
+            -DateTimeField (para campos de fecha y hora)
+            -BooleanField (para campos de verdadero o falso)
+            -EmailField (para campos de correo electronico)
+            -FileField (para campos de archivos)
+            -ImageField (para campos de imagenes)
+            -URLField (para campos de URL)
+            -ForeignKey (para campos de llaves foraneas)
+            -ManyToManyField (para campos de muchos a muchos)
+            -OneToOneField (para campos de uno a uno)
+            -AutoField (para campos de autoincrementables)
+            -SlugField (para campos de URL amigables)
+            -UUIDField (para campos de UUID)
+            -GenericIPAddressField (para campos de direcciones IP)
+            -BinaryField (para campos de binarios)
+            -DecimalField (para campos de decimales)
+            -DurationField (para campos de duracion)
+            -PositiveIntegerField (para campos de numeros enteros positivos)
+            -PositiveSmallIntegerField (para campos de numeros enteros positivos pequeños)
+            -SmallIntegerField (para campos de numeros enteros pequeños)
+            -JSONField (para campos de JSON)
+            -ArrayField (para campos de arreglos)
+            -BigAutoField (para campos de autoincrementables grandes)
+            -BigIntegerField (para campos de numeros enteros grandes)
+            -CommaSeparatedIntegerField (para campos de numeros enteros separados por comas)
+            -FilePathField (para campos de rutas de archivos)
+            -IPAddressField (para campos de direcciones IP)
+            -NullBooleanField (para campos de verdadero o falso nulos)
+            -PositiveBigIntegerField (para campos de numeros enteros positivos grandes)
+            -PositiveSmallIntegerField (para campos de numeros enteros positivos pequeños)
+            -SmallAutoField (para campos de autoincrementables pequeños)
+            -TimeField (para campos de hora)
+            -URLField (para campos de URL)
+            -UUIDField (para campos de UUID)
+            -XMLField (para campos de XML)
+
+        -En el max_length se coloca el numero maximo de caracteres que puede tener el campo
+
+        -En el help_text se coloca una descripcion del campo
+
+    (nombre_campo) = models.(tipo_campo)(choices=[(valor1, 'descripcion1'), (valor2, 'descripcion2')])
+        -En el choices se colocan los valores que puede tener el campo y su descripcion
+    Aunque tambien se pueden crear las opciones previamente y despues solo asignar el valos de las mismas
+    opciones=(
+        (valor1, 'descripcion1'),
+        (valor2, 'descripcion2'),
+    )
+    (nombre_campo) = models.(tipo_campo)(choices=opciones, blank=True, null=True. default=valor1 help_text='(descripcion del campo)')
+        -En el blank se coloca True si el campo puede estar vacio
+        -En el null se coloca True si el campo puede ser nulo
+        -En el default se coloca el valor por defecto que tendra el campo
+        -En el help_text se coloca una descripcion del campo
+
+    (nombre_campo) = models.(tipo_campo)(default=valor)
+        -En el default se coloca el valor por defecto que tendra el campo
+
+    (nombre_campo) = models.(tipo_campo)(primary_key=True)
+        -En el primary_key se coloca True para que el campo sea llave primaria
+
+    (nombre_campo) = models.(tipo_campo)(unique=True)
+        -En el unique se coloca True para que el campo sea unico
+
+    (nombre_campo) = models.(tipo_campo)(null=True)
+        -En el null se coloca True para que el campo pueda ser nulo
+
+    (nombre_campo) = models.(tipo_campo)(blank=True)
+        -En el blank se coloca True para que el campo pueda estar vacio
+
+    (nombre_campo) = models.(tipo_campo)(auto_now=True)
+        -En el auto_now se coloca True para que el campo se actualice automaticamente
+
+    (nombre_campo) = models.(tipo_campo)(auto_now_add=True)
+        -En el auto_now_add se coloca True para que el campo se actualice automaticamente al crear el registro
+
+    (nombre_campo) = models.(tipo_campo)(auto_created=True)
+        -En el auto_created se coloca True para que el campo se cree automaticamente
+
+    (nombre_campo) = models.(tipo_campo)(editable=True)
+        -En el editable se coloca True para que el campo se pueda editar
+
+    (nombre_campo) = models.(tipo_campo)(error_messages={'invalid': 'mensaje de error'})
+        -En el error_messages se colocan los mensajes de error que se mostraran en el campo
+
+    (nombre_campo) = models.(tipo_campo)(validators=[validador1, validador2])
+        -En el validators se colocan los validadores que se usaran en el campo
+
+    (nombre_campo) = models.(tipo_campo)(verbose_name='nombre')
+        -En el verbose_name se coloca el nombre que se mostrara en el campo
+
+    (nombre_campo) = models.(tipo_campo)(verbose_name_plural='nombres')
+        -En el verbose_name_plural se coloca el nombre que se mostrara en el campo en plural
+
+    (nombre_campo) = models.(tipo_campo)(upload_to='carpeta')
+        -En el upload_to se coloca la carpeta donde se guardaran los archivos del campo
+
+    (nombre_campo) = models.(tipo_campo)(max_digits=numero, decimal_places=numero)
+        -En el max_digits se coloca el numero maximo de digitos que puede tener el campo
+        -En el decimal_places se coloca el numero maximo de digitos decimales que puede tener el campo
+
+    (nombre_campo) = models.(tipo_campo)(max_length=100, choices=[(valor1, 'descripcion1'), (valor2, 'descripcion2')], default=valor, primary_key=True, unique=True, null=True, blank=True, auto_now=True, auto_now_add=True, auto_created=True, editable=True, error_messages={'invalid': 'mensaje de error'}, validators=[validador1, validador2], verbose_name='nombre', verbose_name_plural='nombres', upload_to='carpeta', max_digits=numero, decimal_places=numero)
+        -En el max_length se coloca el numero maximo de caracteres que puede tener el campo
+        -En el choices se colocan los valores que puede tener el campo y su descripcion
+        -En el default se coloca el valor por defecto que tendra el campo
+        -En el primary_key se coloca True para que el campo sea llave primaria
+        -En el unique se coloca True para que el campo sea unico
+        -En el null se coloca True para que el campo pueda ser nulo
+        -En el blank se coloca True para que el campo pueda estar vacio
+        -En el auto_now se coloca True para que el campo se actualice automaticamente
+        -En el auto_now_add se coloca True para que el campo se actualice automaticamente al crear el registro
+        -En el auto_created se coloca True para que el campo se cree automaticamente
+        -En el editable se coloca True para que el campo se pueda editar
+        -En el error_messages se colocan los mensajes de error que se mostraran en el campo
+        -En el validators se colocan los validadores que se usaran en el campo
+        -En el verbose_name se coloca el nombre que se mostrara en el campo
+        -En el verbose_name_plural se coloca el nombre que se mostrara en el campo en plural
+        -En el upload_to se coloca la carpeta donde se guardaran los archivos del campo
+        -En el max_digits se coloca el numero maximo de digitos que puede tener el campo
+        -En el decimal_places se coloca el numero maximo de digitos decimales que puede tener el campo
+
+Para crear tablas relacionadas se debe de colocar en el campo de la case el siguiente codigo:
+(nombre_campo) = models.ForeignKey('nombre_modelo', on_delete=models.CASCADE(dependiendo de lo que se requiera))
+    -Lo que se puede colocar es:
+        -CASCADE: Si se elimina el registro padre, se eliminan los registros hijos.
+        -PROTECT: Si se elimina el registro padre, se genera un error.
+        -SET_NULL: Si se elimina el registro padre, se pone el valor de la clave foránea a NULL. Aqui puede colocarse tambien nuull=True para que no se genere un error.
+        -SET_DEFAULT: Si se elimina el registro padre, se pone el valor de la clave foránea al valor por defecto. Aqui puede colocarse tambien default='valor por defecto' para que no se genere un error.
+        -SET(): Si se elimina el registro padre, se pone el valor de la clave foránea a un valor especificado. Aqui puede colocarse tambien set='valor' para que no se genere un error.
+        -DO_NOTHING: Si se elimina el registro padre, no se hace nada con los registros hijos.

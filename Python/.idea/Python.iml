@@ -5,6 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Ejercicio7" />
       <excludeFolder url="file://$MODULE_DIR$/Ejercicio8" />
       <excludeFolder url="file://$MODULE_DIR$/Ejercico6_2" />
+      <excludeFolder url="file://$MODULE_DIR$/Python" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

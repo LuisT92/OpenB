@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <title>PELICULAS_DIRECTORES</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+         <div id="header">
+            {% block menu %}
+            <ul>
+
+            </ul>
+            {% endblock %}
+        </div>
+</head>
+<body>
+    <h1>Directores</h1>
+    <ol>
+        {% for director in directores %}
+        <li>{{ director.nombre }}</li>
+        {% endfor %}
+    </ol>
+</body>
+</html>

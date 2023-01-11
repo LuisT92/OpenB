@@ -1,0 +1,196 @@
+Para crear un proyecto Django se debe de colocar en la consola dentro de la carpeta donde vamos a crear en proyecto
+el comando:
+
+django-admin startproject (nombre_proyecto)(espacio).
+
+Ahora, con runserver se ejecuta el servidor de Django, para ello se debe de colocar en la consola el comando:
+
+python3 manage.py runserver
+
+Asi podemos probar en local el proyecto Django.
+en este framework se trabajo con proyectos que en conjunto crean la aplicacion web
+
+Para crear una aplicacion se debe de colocar en la consola el comando:
+
+python3 manage.py startapp (nombre_aplicacion)
+
+Dspues de craer la aplicacion en la consola. debemos colocar en settings.py el nombre de la aplicacion de esta manera:
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    '(nombre_aplicacion).apps.(NombreAplicacion)Config',
+]
+
+y en el archivo urls.py de la aplicacion se debe de colocar el siguiente codigo:
+
+from django.urls import include
+from django.urls import path
+from django.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+urlpatterns = [
+    path('(nombre de la apliacaion)', include('(nombre de la aplicacion).urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+Para crear las vistas se debe de crear un archivo urls.py en la aplicacion, en la carpeta raiz no en el package y colocar el siguiente codigo:
+
+from django.conf.urls import url o *
+from . import views
+
+urlpatterns = [
+url(r'^$', views.index, name='index'). por ejemplo
+url(r'^contacto/$', views.contacto, name='contacto'). por ejemplo
+]
+
+Para crear un superusuario que fungira/n como administrador/es de la aplicacion se debe de colocar en la consola
+el comando:
+
+python3 manage.py createsuperuser
+
+Y se debe de colocar el nombre de usuario, correo y contraseña.
+
+Aqui ya debe de tener una base de datos creada en el proyecto Django con los parametros que se colocan en el
+archivo settings.py
+Para crear un modelo se debe de colocar en la consola el comando:
+
+python3 manage.py makemigrations
+
+Solo si dentro de la apliacion no se creo el archivo models.py, de ser asi se crean dentro del archivo de la
+siguiente forma:
+
+from django.db import models
+
+class (nombre_modelo)(models.Model):
+    (nombre_campo) = models.(tipo_campo)(max_length=100, help_text='(descripcion del campo)')
+
+    def __str__(self):
+        return self.(nombre_campo)
+
+Cuando se crea una clase con varios campos en el return del def se debe de colocar solo el
+campo que se quiere que se muestre como identificador del modelo.
+
+Para despues entonces coloca en la consola el comando:
+
+python3 manage.py makemigrations
+
+Y para que los cambios realizados en los modelos afecten a la BD se debe de colocar en la consola el comando:
+
+python3 manage.py migrate
+
+Con esto los modelos (tablas) se crean tablas en la BD y podemos crear las tablas que necesitemos con los modelos
+(clases) que necesitemos.
+
+Para crear una base de datos se debe de colocar en la consola el comando:
+
+python3 manage.py migrate
+
+Cuando ya se creo la BD se debe de colocar en models.py el siguiente codigo:
+
+from .models import (nombre_modelo o modelos (separados por comas))
+
+admin.site.register((nombre_modelo o modelos) uno por cada modelo
+
+entonces para poder visualizar y administrar de manera grafica la BD levantamos nuestro servidor local con
+el comando:
+
+python3 manage.py runserver
+
+y en el navegador colocamos la siguiente direccion:
+
+    localhost:8000/admin
+entrando con el usuario y contraseña que se creo.
+
+Para crear las vistas de nuestra aplicacion se debe de colocar en la carpeta admin.py el siguiente codigo e importar
+los modelos que se necesiten:
+
+from .models import (nombre_modelo o modelos (separados por comas))
+
+
+admin.site.register(nombre_modelo)
+
+En views.py se debe de colocar el siguiente codigo:
+
+from .models import (nombre_modelo o modelos (separados por comas))
+from django.shortcuts import render
+
+def (nombre_vista)(request):
+    (nombre variable) = (nombre_modelo).objects.all().(depemdiendo de lo que se quiera hacer):
+        -filter() para filtrar se coloca el campo y el valor que se quiere filtrar ejemplo: filter(nombre='nombre')
+            o tambien se puede filtrar con varios campos ejemplo: filter(nombre='nombre', apellido='apellido')
+            cuanse quiera filtrar por un campo exato se debe de colocar: (campo)__exact='valor'
+        -order_by() para ordenar
+        -exclude() para excluir
+        -count() para contar
+        -first() para obtener el primer elemento
+        -last() para obtener el ultimo elemento
+        -distinct() para obtener los elementos distintos
+        -values() para obtener los valores
+        -values_list() para obtener los valores en lista
+        -get() para obtener un elemento
+        -aggregate() para obtener un valor agregado
+        -exists() para saber si existe
+        -update() para actualizar
+        -delete() para eliminar
+    Y se crean todos los necesarios para esta vista
+
+    return render(request, '(nombre de la plantilla).html',
+        context={
+            '(nombre de la variable)': (nombre variable),
+          }
+          {'(nombre_modelo)': (nombre_modelo)})
+    }
+
+Ahora hay que crear la plantilla HTML en una carpeta llamada templates dentro de nuestra aplicacion
+y colocar el siguiente codigo donde se generara o crearemos nuestra base general de la aplicacion le llamaremos
+base.html:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block (nombre del bloque) %}
+    <title>Document</title>
+{% endblock %}
+
+    <meta charset="UTF-8">
+    <title>Document</title>
+{% load static %}
+- para cargar archivos estaticos como imagenes, css, js, etc. debemos haber colocado en urls.py
+<link rel="stylesheet" href="{% static '(nombre de la carpeta)/(nombre del archivo).css' %}">
+</head>
+<body>
+    {% block (nombre del bloque) %}
+    {% endblock %}
+</body>
+<footer>
+    {% block (nombre del bloque) %}
+    {% endblock %}
+</footer>
+</html>
+
+Despues de esto se debe de crear una plantilla que herede de la base general de la aplicacion y se debe de colocar
+en la carpeta templates de la aplicacion y se debe de colocar el siguiente codigo:
+
+{% extends '(nombre de la plantilla base).html' %}
+
+{% block (nombre del bloque) %}
+    <title>Document</title>
+{% endblock %}
+
+{% block (nombre del bloque) %}
+    <h1>Titulo</h1>
+{% endblock %}
+
+{% block (nombre del bloque) %}
+    <p>Footer</p>
+{% endblock %}
+
+Los estaticos deben de colocarse en la carpeta static dentro de la aplicacion y se deben de separar dependiendo de
+que tipo de archivo es, por ejemplo si es una imagen se debe de colocar en la carpeta img, si es un css se debe de
+colocar en la carpeta css, si es un js se debe de colocar en la carpeta js, etc.
